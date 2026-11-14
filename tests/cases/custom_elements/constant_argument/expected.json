@@ -10,10 +10,20 @@
         {
           "kind": "class",
           "name": "MyButton",
-          "customElement": false
+          "customElement": true,
+          "tagName": "my-button"
         }
       ],
-      "exports": []
+      "exports": [
+        {
+          "declaration": {
+            "module": "tests/cases/custom_elements/constant_argument/input.ts",
+            "name": "MyButton"
+          },
+          "kind": "custom-element-definition",
+          "name": "my-button"
+        }
+      ]
     }
   ]
 }

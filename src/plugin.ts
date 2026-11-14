@@ -14,7 +14,6 @@ export function whiteboxPlugin(): DetectorPlugin {
     },
 
     onFile(context): ManifestFragment {
-      context.sourceFile.forEachChild;
       const fragment: ManifestFragment = {};
 
       context.sourceFile.forEachChild(function visit(node) {
@@ -30,7 +29,7 @@ export function whiteboxPlugin(): DetectorPlugin {
           fragment[className] = classFragment;
         }
 
-        ts.forEachChild(node, visit);
+        node.forEachChild(visit);
       });
 
       return fragment;
@@ -52,11 +51,7 @@ function getCustomElementTagName(
 
   const argument = decorator.expression.arguments[0];
 
-  if (argument && ts.isStringLiteralLike(argument)) {
-    return argument.text;
-  }
-
-  return undefined;
+  return argument ? getStringValue(argument, checker) : undefined;
 }
 
 function isWhiteboxCustomElement(
@@ -90,4 +85,26 @@ function getDecoratorSymbol(
   return symbol.flags & ts.SymbolFlags.Alias
     ? checker.getAliasedSymbol(symbol)
     : symbol;
+}
+
+function getStringValue(
+  node: ts.Expression,
+  checker: ts.TypeChecker,
+): string | undefined {
+  if (ts.isStringLiteralLike(node)) {
+    return node.text;
+  }
+
+  const symbol = checker.getSymbolAtLocation(node);
+  const declaration = symbol?.valueDeclaration;
+
+  if (
+    declaration &&
+    ts.isVariableDeclaration(declaration) &&
+    declaration.initializer
+  ) {
+    return getStringValue(declaration.initializer, checker);
+  }
+
+  return undefined;
 }
