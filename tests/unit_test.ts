@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
 import { loadCases } from "./case.ts";
 import { generateCem } from "@wc-toolkit/cem-generator";
-import { customElementPlugin } from "../src/mod.ts";
+import { customElementPlugin, stylePlugin } from "../src/mod.ts";
 
 const cases = await loadCases("./tests/cases");
 
@@ -9,7 +9,7 @@ for (const testCase of cases) {
   test(testCase.name, async () => {
     const pkg = generateCem({
       include: testCase.inputs,
-      plugins: [customElementPlugin()],
+      plugins: [customElementPlugin(), stylePlugin()],
     });
 
     expect(normalize(pkg)).toEqual(testCase.expected);
