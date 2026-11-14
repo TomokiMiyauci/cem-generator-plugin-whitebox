@@ -4,8 +4,8 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "tests/cases/custom_elements/template_literal_argument/input.ts",
-      "source": "tests/cases/custom_elements/template_literal_argument/input.ts",
+      "path": "tests/cases/custom_elements/tag_names/template_literal/input.ts",
+      "source": "tests/cases/custom_elements/tag_names/template_literal/input.ts",
       "declarations": [
         {
           "kind": "class",
@@ -19,7 +19,7 @@
           "kind": "custom-element-definition",
           "name": "my-button",
           "declaration": {
-            "module": "tests/cases/custom_elements/template_literal_argument/input.ts",
+            "module": "tests/cases/custom_elements/tag_names/template_literal/input.ts",
             "name": "MyButton"
           }
         }
