@@ -51,7 +51,7 @@ function getCustomElementTagName(
 
   const argument = decorator.expression.arguments[0];
 
-  return argument ? getStringValue(argument, checker) : undefined;
+  return argument ? resolveStringValue(argument, checker) : undefined;
 }
 
 function isWhiteboxCustomElement(
@@ -87,23 +87,14 @@ function getDecoratorSymbol(
     : symbol;
 }
 
-function getStringValue(
-  node: ts.Expression,
+export function resolveStringValue(
+  node: ts.Node,
   checker: ts.TypeChecker,
 ): string | undefined {
-  if (ts.isStringLiteralLike(node)) {
-    return node.text;
-  }
+  const type = checker.getTypeAtLocation(node);
 
-  const symbol = checker.getSymbolAtLocation(node);
-  const declaration = symbol?.valueDeclaration;
-
-  if (
-    declaration &&
-    ts.isVariableDeclaration(declaration) &&
-    declaration.initializer
-  ) {
-    return getStringValue(declaration.initializer, checker);
+  if (type.isStringLiteral()) {
+    return type.value;
   }
 
   return undefined;
