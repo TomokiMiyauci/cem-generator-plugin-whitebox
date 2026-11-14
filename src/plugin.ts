@@ -5,9 +5,9 @@ import {
   type ManifestFragment,
 } from "@wc-toolkit/cem-generator";
 
-export function whiteboxPlugin(): DetectorPlugin {
+export function customElementPlugin(): DetectorPlugin {
   return {
-    name: "whitebox",
+    name: "whitebox/customElement",
 
     shouldAnalyze(sourceText): boolean {
       return /(?:customElement)\b/.test(sourceText);
