@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "@types/bun": "^1.4.4",
+    "@types/node": "^26.6.6",
+    "custom-elements-manifest": "^2.1.0",
+    "@whitebox/core": "npm:@jsr/whitebox__core@^0.4"
+  },
+  "dependencies": {
+    "@wc-toolkit/cem-generator": "^0.2.10",
+    "typescript": "^6"
+  },
+  "peerDependencies": {
+    "@whitebox/core": "npm:@jsr/whitebox__core@^0.4"
+  }
+}
