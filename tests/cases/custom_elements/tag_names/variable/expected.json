@@ -1,11 +1,11 @@
 {
   "inputs": ["./input.ts"],
-  "name": "string argument",
+  "name": "constant argument",
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "tests/cases/custom_elements/tag_names/string/input.ts",
-      "source": "tests/cases/custom_elements/tag_names/string/input.ts",
+      "path": "tests/cases/custom_elements/tag_names/variable/input.ts",
+      "source": "tests/cases/custom_elements/tag_names/variable/input.ts",
       "declarations": [
         {
           "kind": "class",
@@ -16,12 +16,12 @@
       ],
       "exports": [
         {
-          "kind": "custom-element-definition",
-          "name": "my-button",
           "declaration": {
-            "module": "tests/cases/custom_elements/tag_names/string/input.ts",
+            "module": "tests/cases/custom_elements/tag_names/variable/input.ts",
             "name": "MyButton"
-          }
+          },
+          "kind": "custom-element-definition",
+          "name": "my-button"
         }
       ]
     }

@@ -1,4 +1,6 @@
 import { customElement } from "@whitebox/core";
 
-@customElement("my-button")
+const tagName = "my-button";
+
+@customElement(tagName)
 class MyButton extends HTMLElement {}

@@ -1,6 +1,6 @@
 {
   "inputs": ["./input.ts"],
-  "name": "constant argument",
+  "name": "string argument",
   "modules": [
     {
       "kind": "javascript-module",
@@ -16,12 +16,12 @@
       ],
       "exports": [
         {
+          "kind": "custom-element-definition",
+          "name": "my-button",
           "declaration": {
             "module": "tests/cases/custom_elements/tag_names/constant/input.ts",
             "name": "MyButton"
-          },
-          "kind": "custom-element-definition",
-          "name": "my-button"
+          }
         }
       ]
     }
