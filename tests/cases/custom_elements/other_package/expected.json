@@ -1,0 +1,19 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "other package",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "tests/cases/custom_elements/other_package/input.ts",
+      "source": "tests/cases/custom_elements/other_package/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "MyButton",
+          "customElement": false
+        }
+      ],
+      "exports": []
+    }
+  ]
+}

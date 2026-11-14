@@ -1,0 +1,19 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "constant argument",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "tests/cases/custom_elements/constant_argument/input.ts",
+      "source": "tests/cases/custom_elements/constant_argument/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "MyButton",
+          "customElement": false
+        }
+      ],
+      "exports": []
+    }
+  ]
+}

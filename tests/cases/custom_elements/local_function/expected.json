@@ -1,0 +1,19 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "local function",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "tests/cases/custom_elements/local_function/input.ts",
+      "source": "tests/cases/custom_elements/local_function/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "MyButton",
+          "customElement": false
+        }
+      ],
+      "exports": []
+    }
+  ]
+}
