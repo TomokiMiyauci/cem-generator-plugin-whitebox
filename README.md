@@ -36,6 +36,8 @@ This plugin detects supported Whitebox decorators and extracts their metadata fo
 The `@customElement` decorator defines the custom element's tag name.
 
 ```ts
+import { customElement } from "@whitebox/core";
+
 @customElement("my-element")
 export class MyElement extends HTMLElement {}
 ```
@@ -49,6 +51,7 @@ The argument must be statically resolvable to a string literal type.
 The `@style` decorator associates a CSS file with a custom element.
 
 ```ts
+import { style } from "@whitebox/core";
 import styles from "./my-element.css" with { type: "css" };
 
 @style(styles)
