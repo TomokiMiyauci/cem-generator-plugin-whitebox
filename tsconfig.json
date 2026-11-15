@@ -4,6 +4,10 @@
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true,
     "moduleDetection": "force",
-    "module": "esnext"
+    "module": "esnext",
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true
   }
 }
