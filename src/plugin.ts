@@ -82,15 +82,7 @@ function getStyleSpecifier(
   checker: ts.TypeChecker,
 ): string | undefined {
   const decorator = (ts.getDecorators(node) ?? []).find((item) => {
-    const symbol = getDecoratorSymbol(item, checker);
-
-    return (
-      symbol?.declarations?.some((declaration) =>
-        declaration
-          .getSourceFile()
-          .fileName.includes("/node_modules/@whitebox/core/"),
-      ) ?? false
-    );
+    return isWhiteboxDecorator(item, "style", checker);
   });
 
   if (!decorator || !ts.isCallExpression(decorator.expression)) {
@@ -131,7 +123,7 @@ function getCustomElementTagName(
   checker: ts.TypeChecker,
 ): string | undefined {
   const decorator = (ts.getDecorators?.(node) ?? []).find((item) =>
-    isWhiteboxCustomElement(item, checker),
+    isWhiteboxDecorator(item, "customElement", checker),
   );
 
   if (!decorator || !ts.isCallExpression(decorator.expression)) {
@@ -143,22 +135,23 @@ function getCustomElementTagName(
   return argument ? resolveStringValue(argument, checker) : undefined;
 }
 
-function isWhiteboxCustomElement(
+function isWhiteboxDecorator(
   decorator: ts.Decorator,
+  name: string,
   checker: ts.TypeChecker,
 ): boolean {
   const symbol = getDecoratorSymbol(decorator, checker);
 
-  if (!symbol) return false;
-
   return (
-    symbol.declarations?.some((declaration) => {
-      const sourceFile = declaration.getSourceFile();
-      return sourceFile.fileName.includes("/node_modules/@whitebox/core/");
-    }) ?? false
+    symbol?.name === name &&
+    (symbol.declarations?.some((declaration) =>
+      declaration
+        .getSourceFile()
+        .fileName.includes("/node_modules/@whitebox/core/"),
+    ) ??
+      false)
   );
 }
-
 function getDecoratorSymbol(
   decorator: ts.Decorator,
   checker: ts.TypeChecker,
