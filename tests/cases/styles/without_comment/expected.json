@@ -1,0 +1,20 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "without property comment",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton"
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/styles/without_comment/input.ts",
+      "source": "tests/cases/styles/without_comment/input.ts"
+    }
+  ]
+}
