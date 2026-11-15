@@ -1,0 +1,20 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "invalid specifier",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton"
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/styles/invalid_specifier/input.ts",
+      "source": "tests/cases/styles/invalid_specifier/input.ts"
+    }
+  ]
+}

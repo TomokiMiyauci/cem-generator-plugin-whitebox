@@ -1,6 +1,6 @@
 {
   "inputs": ["./input.ts"],
-  "name": "without property comment",
+  "name": "outside host",
 
   "modules": [
     {
