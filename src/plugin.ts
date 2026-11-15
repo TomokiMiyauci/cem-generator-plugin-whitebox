@@ -28,12 +28,9 @@ export function customElementPlugin(): DetectorPlugin {
       context.sourceFile.forEachChild(function visit(node) {
         if (ts.isClassDeclaration(node) && node.name) {
           const className = node.name.text;
-          const tagName = getCustomElementTagName(node, context.checker);
-          const classFragment: ClassFragment = {
-            name: className,
-            module: context.filePath,
-            tagName,
-          };
+          const tagName =
+            getCustomElementTagName(node, context.checker) ?? undefined;
+          const classFragment: ClassFragment = { name: className, tagName };
 
           fragment[className] = classFragment;
         }
@@ -67,7 +64,6 @@ export function stylePlugin(): DetectorPlugin {
 
               const classFragment: ClassFragment = {
                 name: className,
-                module: context.filePath,
                 cssProperties: metadata,
               };
 
@@ -114,39 +110,39 @@ export function attrPlugin(): DetectorPlugin {
 function getStyleSpecifier(
   node: ts.ClassDeclaration,
   checker: ts.TypeChecker,
-): string | undefined {
+): string | null {
   const decorator = (ts.getDecorators(node) ?? []).find((item) => {
     return isWhiteboxDecorator(item, "style", checker);
   });
 
   if (!decorator || !ts.isCallExpression(decorator.expression)) {
-    return undefined;
+    return null;
   }
 
   const argument = decorator.expression.arguments[0];
 
   if (!argument || !ts.isIdentifier(argument)) {
-    return undefined;
+    return null;
   }
 
   const symbol = checker.getSymbolAtLocation(argument);
 
-  if (!symbol) return undefined;
+  if (!symbol) return null;
 
   const declaration = symbol.declarations?.find(ts.isImportClause);
 
-  if (!declaration) return undefined;
+  if (!declaration) return null;
 
   const importDeclaration = declaration.parent;
 
   if (!ts.isImportDeclaration(importDeclaration)) {
-    return undefined;
+    return null;
   }
 
   const moduleSpecifier = importDeclaration.moduleSpecifier;
 
   if (!ts.isStringLiteral(moduleSpecifier)) {
-    return undefined;
+    return null;
   }
 
   return moduleSpecifier.text;
@@ -155,18 +151,18 @@ function getStyleSpecifier(
 function getCustomElementTagName(
   node: ts.ClassDeclaration,
   checker: ts.TypeChecker,
-): string | undefined {
+): string | null {
   const decorator = (ts.getDecorators?.(node) ?? []).find((item) =>
     isWhiteboxDecorator(item, "customElement", checker),
   );
 
   if (!decorator || !ts.isCallExpression(decorator.expression)) {
-    return undefined;
+    return null;
   }
 
   const argument = decorator.expression.arguments[0];
 
-  return argument ? resolveStringValue(argument, checker) : undefined;
+  return argument ? resolveStringValue(argument, checker) : null;
 }
 
 function isWhiteboxDecorator(
@@ -189,14 +185,14 @@ function isWhiteboxDecorator(
 function getDecoratorSymbol(
   decorator: ts.Decorator,
   checker: ts.TypeChecker,
-): ts.Symbol | undefined {
+): ts.Symbol | null {
   const expression = decorator.expression;
   const target = ts.isCallExpression(expression)
     ? expression.expression
     : expression;
-
   const symbol = checker.getSymbolAtLocation(target);
-  if (!symbol) return undefined;
+
+  if (!symbol) return null;
 
   return symbol.flags & ts.SymbolFlags.Alias
     ? checker.getAliasedSymbol(symbol)
@@ -206,14 +202,14 @@ function getDecoratorSymbol(
 export function resolveStringValue(
   node: ts.Node,
   checker: ts.TypeChecker,
-): string | undefined {
+): string | null {
   const type = checker.getTypeAtLocation(node);
 
   if (type.isStringLiteral()) {
     return type.value;
   }
 
-  return undefined;
+  return null;
 }
 
 function getAttributes(
