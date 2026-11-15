@@ -13,6 +13,7 @@
     "@whitebox/core": "jsr:@whitebox/core@^0.4"
   },
   "scripts": {
-    "test": "deno test --allow-env --allow-read"
+    "test": "deno test --allow-env --allow-read",
+    "check": "deno check --unstable-raw-imports"
   }
 }
