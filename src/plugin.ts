@@ -92,7 +92,7 @@ export function attrPlugin(): DetectorPlugin {
       context.sourceFile.forEachChild(function visit(node) {
         if (ts.isClassDeclaration(node) && node.name) {
           const className = node.name.text;
-          const attributes = getAttributes(node, context);
+          const attributes = getAttributes(node, context) ?? undefined;
 
           const classFragment: ClassFragment = { name: className, attributes };
 
@@ -215,48 +215,49 @@ export function resolveStringValue(
 function getAttributes(
   node: ts.ClassDeclaration,
   context: FileContext,
-): ClassFragment["attributes"] {
+): ClassFragment["attributes"] | null {
   const members = detectClassMembers(node, context);
   const byName = new Map(
     (members ?? []).map((member) => [member.name, member]),
   );
-  const attributes: NonNullable<ClassFragment["attributes"]> = [];
 
-  for (const member of node.members) {
-    if (!ts.isPropertyDeclaration(member)) continue;
+  const attributes = node.members.reduce<
+    NonNullable<ClassFragment["attributes"]>
+  >((result, member) => {
+    if (!ts.isPropertyDeclaration(member)) return result;
 
     const modifiers = ts.getModifiers(member);
-
     if (
       !modifiers?.some(
         (modifier) => modifier.kind === ts.SyntaxKind.AccessorKeyword,
       )
     ) {
-      continue;
+      return result;
     }
 
-    const attrDecorator = (ts.getDecorators?.(member) ?? []).find((decorator) =>
+    const decorator = (ts.getDecorators(member) ?? []).find((decorator) =>
       isWhiteboxDecorator(decorator, "attr", context.checker),
     );
-    if (!attrDecorator) continue;
+    if (!decorator) return result;
 
     const name = member.name.getText();
     const field = byName.get(name);
-    if (!field || field.internal) continue;
 
-    attributes.push({
-      name: name,
-      type: getNodeTypeText(member, context.checker),
-      // parsedType: getParsedTypeText(member, context.checker),
-      description: field.description,
-      summary: field.summary,
-      deprecated: field.deprecated,
-      default: field.default,
-      fieldName: name,
-    });
+    if (!field || field.internal) return result;
 
-    field.attribute = name;
-  }
+    return [
+      ...result,
+      {
+        name,
+        type: getNodeTypeText(member, context.checker),
+        description: field.description,
+        summary: field.summary,
+        deprecated: field.deprecated,
+        default: field.default,
+        fieldName: name,
+      },
+    ];
+  }, []);
 
-  return attributes.length ? attributes : undefined;
+  return attributes.length > 0 ? attributes : null;
 }
