@@ -1,3 +1,4 @@
+// @ts-ignore
 import { customElement } from "other-library";
 
 @customElement("my-button")
