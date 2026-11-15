@@ -46,6 +46,23 @@ The tag name is added to the class declaration's `tagName` field in the generate
 
 The argument must be statically resolvable to a string literal type.
 
+### `@attr`
+
+The `@attr` decorator exposes an auto-accessor as an HTML attribute.
+
+```ts
+import { attr } from "@whitebox/core";
+
+export class MyButton extends HTMLElement {
+  @attr
+  accessor label: string | null = null;
+}
+```
+
+The accessor name is used as the HTML attribute name. In this example, the `label` attribute is exposed.
+
+The plugin collects decorated accessors as entries in the class declaration's `attributes` field in the generated manifest.
+
 ### `@style`
 
 The `@style` decorator associates a CSS file with a custom element.

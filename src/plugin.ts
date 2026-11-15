@@ -4,11 +4,14 @@ import {
   type DetectorPlugin,
   type ManifestFragment,
   parseCssMetadata,
+  type FileContext,
+  detectClassMembers,
 } from "@wc-toolkit/cem-generator";
+import { getNodeTypeText } from "@wc-toolkit/cem-generator-utils";
 import { resolve, dirname } from "node:path";
 
 export function whiteboxPlugins(): DetectorPlugin[] {
-  return [customElementPlugin(), stylePlugin()];
+  return [customElementPlugin(), stylePlugin(), attrPlugin()];
 }
 
 export function customElementPlugin(): DetectorPlugin {
@@ -71,6 +74,33 @@ export function stylePlugin(): DetectorPlugin {
               fragment[className] = classFragment;
             }
           }
+        }
+
+        node.forEachChild(visit);
+      });
+
+      return fragment;
+    },
+  };
+}
+
+export function attrPlugin(): DetectorPlugin {
+  return {
+    name: "whitebox/attr",
+    shouldAnalyze: (sourceFile) => {
+      return /(?:attr)\b/.test(sourceFile);
+    },
+    onFile(context) {
+      const fragment: ManifestFragment = {};
+
+      context.sourceFile.forEachChild(function visit(node) {
+        if (ts.isClassDeclaration(node) && node.name) {
+          const className = node.name.text;
+          const attributes = getAttributes(node, context);
+
+          const classFragment: ClassFragment = { name: className, attributes };
+
+          fragment[className] = classFragment;
         }
 
         node.forEachChild(visit);
@@ -184,4 +214,53 @@ export function resolveStringValue(
   }
 
   return undefined;
+}
+
+function getAttributes(
+  node: ts.ClassDeclaration,
+  context: FileContext,
+): ClassFragment["attributes"] {
+  const members = detectClassMembers(node, context);
+  const byName = new Map(
+    (members ?? []).map((member) => [member.name, member]),
+  );
+  const attributes: NonNullable<ClassFragment["attributes"]> = [];
+
+  for (const member of node.members) {
+    if (!ts.isPropertyDeclaration(member)) continue;
+
+    const modifiers = ts.getModifiers(member);
+
+    if (
+      !modifiers?.some(
+        (modifier) => modifier.kind === ts.SyntaxKind.AccessorKeyword,
+      )
+    ) {
+      continue;
+    }
+
+    const attrDecorator = (ts.getDecorators?.(member) ?? []).find((decorator) =>
+      isWhiteboxDecorator(decorator, "attr", context.checker),
+    );
+    if (!attrDecorator) continue;
+
+    const name = member.name.getText();
+    const field = byName.get(name);
+    if (!field || field.internal) continue;
+
+    attributes.push({
+      name: name,
+      type: getNodeTypeText(member, context.checker),
+      // parsedType: getParsedTypeText(member, context.checker),
+      description: field.description,
+      summary: field.summary,
+      deprecated: field.deprecated,
+      default: field.default,
+      fieldName: name,
+    });
+
+    field.attribute = name;
+  }
+
+  return attributes.length ? attributes : undefined;
 }

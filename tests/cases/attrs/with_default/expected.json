@@ -1,0 +1,48 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "with default value",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "tests/cases/attrs/with_default/input.ts",
+      "source": "tests/cases/attrs/with_default/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "MyButton",
+          "customElement": false,
+          "attributes": [
+            {
+              "default": "\"test\"",
+              "fieldName": "count",
+              "name": "count",
+              "type": {
+                "text": "string | null"
+              }
+            }
+          ],
+          "members": [
+            {
+              "default": "\"test\"",
+              "kind": "field",
+              "name": "count",
+              "type": {
+                "text": "string | null"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MyButton",
+          "declaration": {
+            "module": "tests/cases/attrs/with_default/input.ts",
+            "name": "MyButton"
+          }
+        }
+      ]
+    }
+  ]
+}
