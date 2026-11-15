@@ -3,6 +3,7 @@
     "types": ["node", "bun"],
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    "module": "esnext"
   }
 }
