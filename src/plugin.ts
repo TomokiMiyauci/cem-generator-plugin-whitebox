@@ -1,14 +1,14 @@
 import ts from "typescript";
 import {
   type ClassFragment,
+  detectClassMembers,
   type DetectorPlugin,
+  type FileContext,
   type ManifestFragment,
   parseCssMetadata,
-  type FileContext,
-  detectClassMembers,
 } from "@wc-toolkit/cem-generator";
 import { getNodeTypeText } from "@wc-toolkit/cem-generator-utils";
-import { resolve, dirname } from "node:path";
+import { dirname, resolve } from "node:path";
 
 export function whiteboxPlugins(): DetectorPlugin[] {
   return [customElementPlugin(), stylePlugin(), attrPlugin()];
@@ -28,8 +28,8 @@ export function customElementPlugin(): DetectorPlugin {
       context.sourceFile.forEachChild(function visit(node) {
         if (ts.isClassDeclaration(node) && node.name) {
           const className = node.name.text;
-          const tagName =
-            getCustomElementTagName(node, context.checker) ?? undefined;
+          const tagName = getCustomElementTagName(node, context.checker) ??
+            undefined;
           const classFragment: ClassFragment = { name: className, tagName };
 
           fragment[className] = classFragment;
@@ -156,7 +156,7 @@ function getCustomElementTagName(
   checker: ts.TypeChecker,
 ): string | null {
   const decorator = (ts.getDecorators?.(node) ?? []).find((item) =>
-    isWhiteboxDecorator(item, "customElement", checker),
+    isWhiteboxDecorator(item, "customElement", checker)
   );
 
   if (!decorator || !ts.isCallExpression(decorator.expression)) {
@@ -173,18 +173,9 @@ function isWhiteboxDecorator(
   name: string,
   checker: ts.TypeChecker,
 ): boolean {
-  const symbol = getDecoratorSymbol(decorator, checker);
-
-  return (
-    symbol?.name === name &&
-    (symbol.declarations?.some((declaration) =>
-      declaration
-        .getSourceFile()
-        .fileName.includes("/node_modules/@whitebox/core/"),
-    ) ??
-      false)
-  );
+  return getDecoratorSymbol(decorator, checker)?.name === name;
 }
+
 function getDecoratorSymbol(
   decorator: ts.Decorator,
   checker: ts.TypeChecker,
@@ -239,7 +230,7 @@ function getAttributes(
     }
 
     const decorator = (ts.getDecorators(member) ?? []).find((decorator) =>
-      isWhiteboxDecorator(decorator, "attr", context.checker),
+      isWhiteboxDecorator(decorator, "attr", context.checker)
     );
     if (!decorator) return result;
 

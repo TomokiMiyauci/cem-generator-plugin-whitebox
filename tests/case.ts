@@ -1,6 +1,6 @@
-// case.ts
-import { resolve, dirname } from "node:path";
-import { Package } from "custom-elements-manifest";
+import { dirname, join, resolve } from "node:path";
+import { type Package } from "custom-elements-manifest";
+import { glob, readFile } from "node:fs/promises";
 
 export interface CaseDefinition {
   name: string;
@@ -15,11 +15,11 @@ export interface TestCase {
 }
 
 export async function loadCases(directory: string): Promise<TestCase[]> {
-  const glob = new Bun.Glob("**/*.json");
+  const iter = glob("**/*.json", { cwd: directory });
   const files: string[] = [];
 
-  for await (const file of glob.scan({ cwd: directory })) {
-    files.push(file);
+  for await (const file of iter) {
+    files.push(join(directory, file));
   }
 
   files.sort();
@@ -27,9 +27,10 @@ export async function loadCases(directory: string): Promise<TestCase[]> {
   return Promise.all(
     files.map(async (file) => {
       const path = resolve(directory, file);
-      const definition = (await Bun.file(path).json()) as CaseDefinition;
+      const content = await readFile(path, { encoding: "utf8" });
+      const json = JSON.parse(content) as CaseDefinition;
 
-      return normalizeCase(definition, path);
+      return normalizeCase(json, path);
     }),
   );
 }

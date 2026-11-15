@@ -1,6 +1,7 @@
 {
   "inputs": ["./input.ts"],
   "name": "local function",
+  "description": "This case is not supported yet.",
   "modules": [
     {
       "kind": "javascript-module",
@@ -10,10 +11,20 @@
         {
           "kind": "class",
           "name": "MyButton",
-          "customElement": false
+          "customElement": true,
+          "tagName": "my-button"
         }
       ],
-      "exports": []
+      "exports": [
+        {
+          "declaration": {
+            "module": "tests/cases/custom_elements/local_function/input.ts",
+            "name": "MyButton"
+          },
+          "kind": "custom-element-definition",
+          "name": "my-button"
+        }
+      ]
     }
   ]
 }

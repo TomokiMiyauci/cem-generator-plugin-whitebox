@@ -1,18 +1,20 @@
-import { expect, test } from "bun:test";
+import { test } from "node:test";
+import { deepStrictEqual } from "node:assert";
+import { join } from "node:path";
 import { loadCases } from "./case.ts";
 import { generateCem } from "@wc-toolkit/cem-generator";
 import { whiteboxPlugins } from "../src/mod.ts";
 
-const cases = await loadCases("./tests/cases");
+const cases = await loadCases(join(import.meta.dirname, "./cases/"));
 
 for (const testCase of cases) {
-  test(testCase.name, async () => {
+  await test(testCase.name, () => {
     const pkg = generateCem({
       include: testCase.inputs,
       plugins: whiteboxPlugins(),
     });
 
-    expect(normalize(pkg)).toEqual(testCase.expected);
+    deepStrictEqual(normalize(pkg), testCase.expected);
   });
 }
 
