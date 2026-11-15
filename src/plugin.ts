@@ -19,7 +19,7 @@ export function customElementPlugin(): DetectorPlugin {
     name: "whitebox/customElement",
 
     shouldAnalyze(sourceText): boolean {
-      return /(?:customElement)\b/.test(sourceText);
+      return /customElement\b/.test(sourceText);
     },
 
     onFile(context): ManifestFragment {
@@ -46,6 +46,9 @@ export function customElementPlugin(): DetectorPlugin {
 export function stylePlugin(): DetectorPlugin {
   return {
     name: "whitebox/style",
+    shouldAnalyze(sourceFile) {
+      return /style\b/.test(sourceFile);
+    },
     onFile(context) {
       const fragment: ManifestFragment = {};
 
@@ -84,7 +87,7 @@ export function attrPlugin(): DetectorPlugin {
   return {
     name: "whitebox/attr",
     shouldAnalyze: (sourceFile) => {
-      return /(?:attr)\b/.test(sourceFile);
+      return /attr\b/.test(sourceFile);
     },
     onFile(context) {
       const fragment: ManifestFragment = {};
