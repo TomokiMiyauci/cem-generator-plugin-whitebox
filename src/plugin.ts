@@ -7,6 +7,10 @@ import {
 } from "@wc-toolkit/cem-generator";
 import { resolve, dirname } from "node:path";
 
+export function whiteboxPlugins(): DetectorPlugin[] {
+  return [customElementPlugin(), stylePlugin()];
+}
+
 export function customElementPlugin(): DetectorPlugin {
   return {
     name: "whitebox/customElement",
