@@ -1,0 +1,5 @@
+{
+  "name": "@whitebox/cem-generator",
+  "exports": "./src/mod.ts",
+  "version": "0.1.0"
+}
