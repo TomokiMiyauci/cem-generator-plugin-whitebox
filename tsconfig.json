@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["node", "bun"],
+    "types": ["node"],
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true,
     "moduleDetection": "force",
