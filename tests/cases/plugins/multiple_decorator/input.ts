@@ -1,4 +1,4 @@
-import { style, customElement } from "@whitebox/core";
+import { customElement, style } from "@whitebox/core";
 import css from "./style.css" with { type: "css" };
 
 @customElement("my-button")
