@@ -10,6 +10,9 @@ import {
 import { getNodeTypeText } from "@wc-toolkit/cem-generator-utils";
 import { dirname, resolve } from "node:path";
 
+/**
+ * Returns the Whitebox detector plugins for CEM generator.
+ */
 export function whiteboxPlugins(): DetectorPlugin[] {
   return [customElementPlugin(), stylePlugin(), attrPlugin()];
 }
