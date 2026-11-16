@@ -14,7 +14,7 @@ import { dirname, resolve } from "node:path";
  * Returns the Whitebox detector plugins for CEM generator.
  */
 export function whiteboxPlugins(): DetectorPlugin[] {
-  return [customElementPlugin(), stylePlugin(), attrPlugin()];
+  return [customElementPlugin(), stylePlugin(), attrPlugin(), jsxPlugin()];
 }
 
 export function customElementPlugin(): DetectorPlugin {
@@ -101,6 +101,35 @@ export function attrPlugin(): DetectorPlugin {
           const attributes = getAttributes(node, context) ?? undefined;
 
           const classFragment: ClassFragment = { name: className, attributes };
+
+          fragment[className] = classFragment;
+        }
+
+        node.forEachChild(visit);
+      });
+
+      return fragment;
+    },
+  };
+}
+
+export function jsxPlugin(): DetectorPlugin {
+  return {
+    name: "whitebox/jsx",
+
+    shouldAnalyze(sourceFile) {
+      return /template\b/.test(sourceFile);
+    },
+
+    onFile(context) {
+      const fragment: ManifestFragment = {};
+
+      context.sourceFile.forEachChild(function visit(node) {
+        if (ts.isClassDeclaration(node) && node.name) {
+          const className = node.name.text;
+          const slots = getSlots(node, context.checker) ?? undefined;
+
+          const classFragment: ClassFragment = { name: className, slots };
 
           fragment[className] = classFragment;
         }
@@ -257,4 +286,83 @@ function getAttributes(
   }, []);
 
   return attributes.length > 0 ? attributes : null;
+}
+
+function getSlots(
+  node: ts.ClassDeclaration,
+  checker: ts.TypeChecker,
+): ClassFragment["slots"] | null {
+  const decorators = ts.getDecorators(node) ?? [];
+  const decorator = decorators.find((item) =>
+    isWhiteboxDecorator(item, "template", checker)
+  );
+
+  if (!decorator || !ts.isCallExpression(decorator.expression)) {
+    return null;
+  }
+
+  const template = decorator.expression.arguments[0];
+
+  if (!template) return null;
+
+  const slots: NonNullable<ClassFragment["slots"]> = [];
+  const names = new Set<string>();
+
+  function visit(node: ts.Node): void {
+    if (ts.isJsxElement(node)) {
+      addSlot(node.openingElement);
+    } else if (ts.isJsxSelfClosingElement(node)) {
+      addSlot(node);
+    }
+
+    node.forEachChild(visit);
+  }
+
+  function addSlot(
+    node: ts.JsxOpeningElement | ts.JsxSelfClosingElement,
+  ): void {
+    if (!ts.isIdentifier(node.tagName) || node.tagName.text !== "slot") {
+      return;
+    }
+
+    const nameAttribute = node.attributes.properties.find(
+      (property): property is ts.JsxAttribute =>
+        ts.isJsxAttribute(property) && property.name.getText() === "name",
+    );
+
+    const name = nameAttribute
+      ? getAttributeValue(nameAttribute, checker) ?? ""
+      : "";
+
+    if (names.has(name)) return;
+
+    names.add(name);
+    slots.push({ name });
+  }
+
+  visit(template);
+
+  return slots.length > 0 ? slots : null;
+}
+
+function getAttributeValue(
+  attr: ts.JsxAttribute,
+  checker: ts.TypeChecker,
+): string | null {
+  const initializer = attr?.initializer;
+
+  if (!initializer) return null;
+
+  if (ts.isStringLiteral(initializer)) {
+    return initializer.text;
+  } else if (
+    ts.isJsxExpression(initializer) &&
+    initializer.expression
+  ) {
+    const value = resolveStringValue(initializer.expression, checker);
+
+    return value;
+  }
+
+  return null;
 }

@@ -8,6 +8,7 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "jsx": "react-jsx"
   }
 }

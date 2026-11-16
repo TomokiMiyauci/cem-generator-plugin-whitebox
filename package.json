@@ -2,7 +2,10 @@
   "devDependencies": {
     "@types/node": "^26.6.6",
     "custom-elements-manifest": "^2.1.0",
-    "@whitebox/core": "jsr:@whitebox/core@^0.4"
+    "@whitebox/core": "jsr:@whitebox/core@^0.4",
+    "@whitebox/react": "jsr:@whitebox/react@^0.1",
+    "react": "^19",
+    "@types/react": "^19"
   },
   "dependencies": {
     "@wc-toolkit/cem-generator": "^0.2.10",

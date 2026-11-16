@@ -1,0 +1,23 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "basic",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "slots": [{
+            "name": ""
+          }]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/basic/input.tsx",
+      "source": "tests/cases/templates/basic/input.tsx"
+    }
+  ]
+}
