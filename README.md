@@ -1,11 +1,12 @@
 # cem-generator-plugin-whitebox
 
-[CEM Generator](https://github.com/wc-toolkit/cem-generator) plugin for [Whitebox](https://github.com/TomokiMiyauci/whitebox).
+[CEM Generator](https://github.com/wc-toolkit/cem-generator) plugin for
+[Whitebox](https://github.com/TomokiMiyauci/whitebox).
 
 ## Install
 
 ```bash
-npx jsr add @whitebox/plugin-cem-generator
+npx jsr add @whitebox/cem-generator-plugin
 ```
 
 ## Usage
@@ -13,7 +14,7 @@ npx jsr add @whitebox/plugin-cem-generator
 Create a `cem-generator.config.mjs` file:
 
 ```js
-import { whiteboxPlugins } from "@whitebox/plugin-cem-generator";
+import { whiteboxPlugins } from "@whitebox/cem-generator-plugin";
 
 export default {
   include: ["src/**/*.{ts,tsx,js,jsx}"],
@@ -29,7 +30,8 @@ npx @wc-toolkit/cem-generator-cli generate
 
 ## Supported Syntax
 
-This plugin detects supported Whitebox decorators and extracts their metadata for the Custom Elements Manifest (CEM).
+This plugin detects supported Whitebox decorators and extracts their metadata
+for the Custom Elements Manifest (CEM).
 
 ### `@customElement`
 
@@ -42,7 +44,8 @@ import { customElement } from "@whitebox/core";
 export class MyElement extends HTMLElement {}
 ```
 
-The tag name is added to the class declaration's `tagName` field in the generated manifest.
+The tag name is added to the class declaration's `tagName` field in the
+generated manifest.
 
 The argument must be statically resolvable to a string literal type.
 
@@ -59,9 +62,11 @@ export class MyButton extends HTMLElement {
 }
 ```
 
-The accessor name is used as the HTML attribute name. In this example, the `label` attribute is exposed.
+The accessor name is used as the HTML attribute name. In this example, the
+`label` attribute is exposed.
 
-The plugin collects decorated accessors as entries in the class declaration's `attributes` field in the generated manifest.
+The plugin collects decorated accessors as entries in the class declaration's
+`attributes` field in the generated manifest.
 
 ### `@style`
 
@@ -75,7 +80,8 @@ import styles from "./my-element.css" with { type: "css" };
 export class MyElement extends HTMLElement {}
 ```
 
-The plugin resolves the imported CSS file and extracts CSS properties into the class declaration's `cssProperties` field in the generated manifest.
+The plugin resolves the imported CSS file and extracts CSS properties into the
+class declaration's `cssProperties` field in the generated manifest.
 
 For example, consider the following CSS:
 
@@ -97,7 +103,8 @@ For example, consider the following CSS:
 The extraction rules are:
 
 - All `@property` rules are extracted, regardless of comments.
-- CSS custom properties declared within `:host` rules are extracted only when accompanied by a CSS comment.
+- CSS custom properties declared within `:host` rules are extracted only when
+  accompanied by a CSS comment.
 
 ## License
 
