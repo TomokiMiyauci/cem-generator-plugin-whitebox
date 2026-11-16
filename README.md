@@ -1,4 +1,4 @@
-# whitebox-cem-generator
+# cem-generator-plugin-whitebox
 
 [CEM generator](https://github.com/wc-toolkit/cem-generator) for [Whitebox](https://github.com/TomokiMiyauci/whitebox).
 
