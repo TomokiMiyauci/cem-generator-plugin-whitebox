@@ -1,0 +1,27 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "property at rule",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "cssProperties": [
+            {
+              "default": "teal",
+              "name": "--surface-color",
+              "syntax": "<color>"
+            }
+          ]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/styles/property_rule/input.ts",
+      "source": "tests/cases/styles/property_rule/input.ts"
+    }
+  ]
+}

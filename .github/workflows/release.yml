@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+
+    outputs:
+      release-created: ${{ steps.release.outputs.release_created }}
+      sha: ${{ steps.release.outputs.sha }}
+
+    steps:
+      - name: Release Please
+        id: release
+        uses: googleapis/release-please-action@v5
+
+  publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release-created == 'true' }}
+    uses: ./.github/workflows/publish.yml
+    with:
+      ref: v${{ needs.release-please.outputs.sha }}
+    permissions:
+      contents: read
+      id-token: write

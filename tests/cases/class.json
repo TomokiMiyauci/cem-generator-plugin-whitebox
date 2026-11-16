@@ -1,0 +1,6 @@
+{
+  "inputs": ["../fixtures/class.ts"],
+  "name": "plain class",
+
+  "modules": []
+}

@@ -1,0 +1,20 @@
+{
+  "inputs": ["../fixtures/extended_html_element.ts"],
+  "name": "html extended class",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": false,
+          "name": "MyButton"
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/fixtures/extended_html_element.ts",
+      "source": "tests/fixtures/extended_html_element.ts"
+    }
+  ]
+}

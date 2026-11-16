@@ -1,0 +1,4 @@
+import { customElement } from "@whitebox/core";
+
+@customElement(`my-button`)
+class MyButton extends HTMLElement {}

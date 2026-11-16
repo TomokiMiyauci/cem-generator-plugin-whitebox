@@ -1,0 +1,29 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "named import",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "tests/cases/custom_elements/named_import/input.ts",
+      "source": "tests/cases/custom_elements/named_import/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "MyButton",
+          "customElement": true,
+          "tagName": "my-button"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "my-button",
+          "declaration": {
+            "module": "tests/cases/custom_elements/named_import/input.ts",
+            "name": "MyButton"
+          }
+        }
+      ]
+    }
+  ]
+}

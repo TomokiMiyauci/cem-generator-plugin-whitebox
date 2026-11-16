@@ -1,15 +1,19 @@
 {
   "devDependencies": {
-    "@types/bun": "^1.4.4",
     "@types/node": "^26.6.6",
     "custom-elements-manifest": "^2.1.0",
-    "@whitebox/core": "npm:@jsr/whitebox__core@^0.4"
+    "@whitebox/core": "jsr:@whitebox/core@^0.4"
   },
   "dependencies": {
     "@wc-toolkit/cem-generator": "^0.2.10",
+    "@wc-toolkit/cem-generator-utils": "^0.1.8",
     "typescript": "^6"
   },
   "peerDependencies": {
-    "@whitebox/core": "npm:@jsr/whitebox__core@^0.4"
+    "@whitebox/core": "jsr:@whitebox/core@^0.4"
+  },
+  "scripts": {
+    "test": "deno test --allow-env --allow-read",
+    "check": "deno check --unstable-raw-imports"
   }
 }

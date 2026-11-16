@@ -1,0 +1,36 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "multiple decorator",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "tests/cases/plugins/multiple_decorator/input.ts",
+      "source": "tests/cases/plugins/multiple_decorator/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "MyButton",
+          "customElement": true,
+          "tagName": "my-button",
+          "cssProperties": [
+            {
+              "default": "red",
+              "description": "test",
+              "name": "--my-button-color"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "my-button",
+          "declaration": {
+            "module": "tests/cases/plugins/multiple_decorator/input.ts",
+            "name": "MyButton"
+          }
+        }
+      ]
+    }
+  ]
+}

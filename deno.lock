@@ -1,0 +1,83 @@
+{
+  "version": "5",
+  "specifiers": {
+    "npm:@jsr/whitebox__core@0.4": "0.4.2",
+    "npm:@types/node@^26.6.6": "26.6.6",
+    "npm:@wc-toolkit/cem-generator-utils@~0.1.8": "0.1.8",
+    "npm:@wc-toolkit/cem-generator@~0.2.10": "0.2.10",
+    "npm:custom-elements-manifest@^2.1.0": "2.1.0",
+    "npm:typescript@6": "6.0.3"
+  },
+  "npm": {
+    "@jsr/whitebox__core@0.4.2": {
+      "integrity": "sha512-iFe/uiGKHATI6pBWfK/k5X6JWq5OZ4yrxSaJVcAomMqAnpo7sCtoT57eIIv4Sf5W8yARcD/LzzbbbSddagZE1w==",
+      "dependencies": [
+        "signal-polyfill"
+      ],
+      "tarball": "https://npm.jsr.io/~/11/@jsr/whitebox__core/0.4.2.tgz"
+    },
+    "@types/node@26.6.6": {
+      "integrity": "sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==",
+      "dependencies": [
+        "undici-types"
+      ]
+    },
+    "@wc-toolkit/cem-generator-utils@0.1.8": {
+      "integrity": "sha512-5GL/PhRI3YPoA/KiekYOwaWRfwLRQ6Bw3urVqrqJKXhxSx1vCg0NsA97qLbXmnP1iknrCe1pqO9lYmntVXJKRQ==",
+      "dependencies": [
+        "typescript"
+      ]
+    },
+    "@wc-toolkit/cem-generator@0.2.10": {
+      "integrity": "sha512-CtPmduY6ex5eLW6aXJ1BkgTAZ6ZGsxbJfJatIkZqZd9XctbD6EQ+cHUl7jKmO6RXxtW8q8QQENp9HUSQBm8N8Q==",
+      "dependencies": [
+        "@wc-toolkit/cem-generator-utils",
+        "postcss",
+        "typescript"
+      ]
+    },
+    "custom-elements-manifest@2.1.0": {
+      "integrity": "sha512-4TU+YhBQpCGYWonsZVTOPx6aYJXenOiSRT7TNGvDB7ipa4SZSJKed1DYXG77XKL9JFZ86sDSDVkwgv1mqw3V3A=="
+    },
+    "nanoid@3.3.20": {
+      "integrity": "sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==",
+      "bin": true
+    },
+    "picocolors@1.1.1": {
+      "integrity": "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="
+    },
+    "postcss@8.5.33": {
+      "integrity": "sha512-RVHEU9/Pp1Fnjr/MpAJsZoADukCKhfIi15OunEYiGktIkYLkPVvC1sioWolGDS7XByMTx9m/IGbro0Js13zhnQ==",
+      "dependencies": [
+        "nanoid",
+        "picocolors",
+        "source-map-js"
+      ]
+    },
+    "signal-polyfill@0.2.2": {
+      "integrity": "sha512-p63Y4Er5/eMQ9RHg0M0Y64NlsQKpiu6MDdhBXpyywRuWiPywhJTpKJ1iB5K2hJEbFZ0BnDS7ZkJ+0AfTuL37Rg=="
+    },
+    "source-map-js@1.2.2": {
+      "integrity": "sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw=="
+    },
+    "typescript@6.0.3": {
+      "integrity": "sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==",
+      "bin": true
+    },
+    "undici-types@8.9.0": {
+      "integrity": "sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg=="
+    }
+  },
+  "workspace": {
+    "packageJson": {
+      "dependencies": [
+        "npm:@jsr/whitebox__core@0.4",
+        "npm:@types/node@^26.6.6",
+        "npm:@wc-toolkit/cem-generator-utils@~0.1.8",
+        "npm:@wc-toolkit/cem-generator@~0.2.10",
+        "npm:custom-elements-manifest@^2.1.0",
+        "npm:typescript@6"
+      ]
+    }
+  }
+}

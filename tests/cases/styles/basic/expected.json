@@ -1,0 +1,27 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "basic css",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "cssProperties": [
+            {
+              "default": "red",
+              "description": "test",
+              "name": "--my-button-color"
+            }
+          ]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/styles/basic/input.ts",
+      "source": "tests/cases/styles/basic/input.ts"
+    }
+  ]
+}

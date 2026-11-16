@@ -1,0 +1,20 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "concatenation",
+  "description": "concatenation is not supported",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "tests/cases/custom_elements/tag_names/concatenation/input.ts",
+      "source": "tests/cases/custom_elements/tag_names/concatenation/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "MyButton",
+          "customElement": false
+        }
+      ],
+      "exports": []
+    }
+  ]
+}

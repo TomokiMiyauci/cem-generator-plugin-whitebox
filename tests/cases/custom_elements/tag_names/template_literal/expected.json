@@ -1,0 +1,29 @@
+{
+  "inputs": ["./input.ts"],
+  "name": "template literal argument",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "tests/cases/custom_elements/tag_names/template_literal/input.ts",
+      "source": "tests/cases/custom_elements/tag_names/template_literal/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "MyButton",
+          "customElement": true,
+          "tagName": "my-button"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "my-button",
+          "declaration": {
+            "module": "tests/cases/custom_elements/tag_names/template_literal/input.ts",
+            "name": "MyButton"
+          }
+        }
+      ]
+    }
+  ]
+}

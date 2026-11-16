@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
-    "types": ["node", "bun"],
+    "types": ["node"],
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    "module": "esnext",
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true
   }
 }
