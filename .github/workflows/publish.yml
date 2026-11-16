@@ -1,0 +1,33 @@
+name: Publish
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        type: string
+        required: true
+
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to publish (branch, tag, or commit SHA; e.g. refs/heads/main, refs/tags/v1.0.0, or 0abcdef...)
+        type: string
+        required: true
+
+jobs:
+  publish:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: denoland/setup-deno@v2
+
+      - name: Publish to JSR
+        run: deno publish
