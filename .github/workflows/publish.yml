@@ -28,6 +28,11 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - uses: denoland/setup-deno@v2
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: deno ci
 
       - name: Publish to JSR
         run: deno publish
