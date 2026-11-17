@@ -340,7 +340,9 @@ function getSlots(
     slots.push({ name });
   }
 
-  visit(template);
+  for (const expression of getTemplateExpressions(template)) {
+    visit(expression);
+  }
 
   return slots.length > 0 ? slots : null;
 }
@@ -365,4 +367,40 @@ function getAttributeValue(
   }
 
   return null;
+}
+
+function getTemplateExpressions(
+  template: ts.Expression,
+): ts.Node[] {
+  const body = ts.isFunctionLike(template) ? template.body : undefined;
+
+  if (!body) return [];
+
+  return getReturnExpressions(body);
+}
+
+function getReturnExpressions(
+  body: ts.ConciseBody,
+): ts.Expression[] {
+  if (!ts.isBlock(body)) {
+    return [body];
+  }
+
+  const expressions: ts.Expression[] = [];
+
+  function visit(node: ts.Node): void {
+    if (node !== body && ts.isFunctionLike(node)) {
+      return;
+    }
+
+    if (ts.isReturnStatement(node) && node.expression) {
+      expressions.push(node.expression);
+      return;
+    }
+
+    node.forEachChild(visit);
+  }
+
+  visit(body);
+  return expressions;
 }
