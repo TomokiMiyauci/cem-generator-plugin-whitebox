@@ -13,6 +13,9 @@
  * - **Styles**: Resolves stylesheets referenced by `@style` decorators,
  *   extracts CSS metadata, and adds the resulting CSS properties to
  *   class declarations.
+ * - **Templates**: Analyzes inline functions passed to `@template`
+ *   decorators, detects native JSX `slot` elements in their return
+ *   expressions, and adds them to class declarations.
  *
  * @example Basic `cem-generator.config.mjs`
  * ```js

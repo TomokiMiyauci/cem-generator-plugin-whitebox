@@ -106,6 +106,34 @@ The extraction rules are:
 - CSS custom properties declared within `:host` rules are extracted only when
   accompanied by a CSS comment.
 
+### @template
+
+The `@template` decorator defines the template function used to render a custom
+element.
+
+```tsx
+import { template } from "@whitebox/react";
+
+@template(() => (
+  <>
+    <slot name="header" />
+    <slot />
+  </>
+))
+export class MyElement extends HTMLElement {}
+```
+
+The plugin analyzes the `template` function's return expressions and detects
+native `slot` elements. Detected slots are added to the class declaration's
+`slots` field in the generated manifest.
+
+The plugin currently supports inline functions only, including both
+expression-bodied and block-bodied functions.
+
+The plugin analyzes JSX elements directly present in the function's return
+expressions. It does not resolve local variable references or expand custom JSX
+components.
+
 ## License
 
 [MIT](LICENSE)
