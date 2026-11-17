@@ -2,10 +2,13 @@
   "version": "5",
   "specifiers": {
     "npm:@jsr/whitebox__core@0.4": "0.4.2",
+    "npm:@jsr/whitebox__react@0.1": "0.1.1_react@19.3.1",
     "npm:@types/node@^26.6.6": "26.6.6",
+    "npm:@types/react@19": "19.3.0",
     "npm:@wc-toolkit/cem-generator-utils@~0.1.8": "0.1.8",
     "npm:@wc-toolkit/cem-generator@~0.2.10": "0.2.10",
     "npm:custom-elements-manifest@^2.1.0": "2.1.0",
+    "npm:react@19": "19.3.1",
     "npm:typescript@6": "6.0.3"
   },
   "npm": {
@@ -16,10 +19,32 @@
       ],
       "tarball": "https://npm.jsr.io/~/11/@jsr/whitebox__core/0.4.2.tgz"
     },
+    "@jsr/whitebox__react@0.1.1_react@19.3.1": {
+      "integrity": "sha512-8asmBDlDkDkAuCOovcXNBcRBU2FbATRgiYwBADdyODq9VhevfJ9rzVBh6YbjxOaFtWzzcvJFSyB2+BfEIw+UCw==",
+      "dependencies": [
+        "@jsr/whitebox__core",
+        "@types/react",
+        "@types/react-dom",
+        "react-dom"
+      ],
+      "tarball": "https://npm.jsr.io/~/11/@jsr/whitebox__react/0.1.1.tgz"
+    },
     "@types/node@26.6.6": {
       "integrity": "sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==",
       "dependencies": [
         "undici-types"
+      ]
+    },
+    "@types/react-dom@19.3.0_@types+react@19.3.0": {
+      "integrity": "sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==",
+      "dependencies": [
+        "@types/react"
+      ]
+    },
+    "@types/react@19.3.0": {
+      "integrity": "sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==",
+      "dependencies": [
+        "csstype"
       ]
     },
     "@wc-toolkit/cem-generator-utils@0.1.8": {
@@ -35,6 +60,9 @@
         "postcss",
         "typescript"
       ]
+    },
+    "csstype@3.2.3": {
+      "integrity": "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ=="
     },
     "custom-elements-manifest@2.1.0": {
       "integrity": "sha512-4TU+YhBQpCGYWonsZVTOPx6aYJXenOiSRT7TNGvDB7ipa4SZSJKed1DYXG77XKL9JFZ86sDSDVkwgv1mqw3V3A=="
@@ -54,6 +82,19 @@
         "source-map-js"
       ]
     },
+    "react-dom@19.3.1_react@19.3.1": {
+      "integrity": "sha512-Y0bARz53lhEC1NMCASs0/j+faB/zqt3R8hpvg1e8+61ZVJ4UL0UdC4cBbXfZMcIuhrfgeILTLe+ZeBCavQPtKQ==",
+      "dependencies": [
+        "react",
+        "scheduler"
+      ]
+    },
+    "react@19.3.1": {
+      "integrity": "sha512-QNhWdt7nrgVWWQG58QuGsAR3jv3Hbe4mb4vz7w2csnHavciZJgda1CPNaldF6eVxv90ud3jUXpKlHL69gO38yw=="
+    },
+    "scheduler@0.28.0": {
+      "integrity": "sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw=="
+    },
     "signal-polyfill@0.2.2": {
       "integrity": "sha512-p63Y4Er5/eMQ9RHg0M0Y64NlsQKpiu6MDdhBXpyywRuWiPywhJTpKJ1iB5K2hJEbFZ0BnDS7ZkJ+0AfTuL37Rg=="
     },
@@ -72,10 +113,13 @@
     "packageJson": {
       "dependencies": [
         "npm:@jsr/whitebox__core@0.4",
+        "npm:@jsr/whitebox__react@0.1",
         "npm:@types/node@^26.6.6",
+        "npm:@types/react@19",
         "npm:@wc-toolkit/cem-generator-utils@~0.1.8",
         "npm:@wc-toolkit/cem-generator@~0.2.10",
         "npm:custom-elements-manifest@^2.1.0",
+        "npm:react@19",
         "npm:typescript@6"
       ]
     }

@@ -1,0 +1,24 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "complex conditional",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "slots": [
+            { "name": "primary" },
+            { "name": "secondary" }
+          ]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/conditional_complex/input.tsx",
+      "source": "tests/cases/templates/conditional_complex/input.tsx"
+    }
+  ]
+}

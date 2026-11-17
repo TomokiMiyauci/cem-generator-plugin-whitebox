@@ -1,0 +1,24 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "multiple",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "slots": [
+            { "name": "" },
+            { "name": "test" }
+          ]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/multiple/input.tsx",
+      "source": "tests/cases/templates/multiple/input.tsx"
+    }
+  ]
+}
