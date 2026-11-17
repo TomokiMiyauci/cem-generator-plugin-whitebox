@@ -187,7 +187,7 @@ function getCustomElementTagName(
   node: ts.ClassDeclaration,
   checker: ts.TypeChecker,
 ): string | null {
-  const decorator = (ts.getDecorators?.(node) ?? []).find((item) =>
+  const decorator = (ts.getDecorators(node) ?? []).find((item) =>
     isWhiteboxDecorator(item, "customElement", checker)
   );
 
@@ -351,7 +351,7 @@ function getAttributeValue(
   attr: ts.JsxAttribute,
   checker: ts.TypeChecker,
 ): string | null {
-  const initializer = attr?.initializer;
+  const initializer = attr.initializer;
 
   if (!initializer) return null;
 
