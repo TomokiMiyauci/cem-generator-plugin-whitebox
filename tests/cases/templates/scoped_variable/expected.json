@@ -1,0 +1,21 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "scoped variable",
+  "description": "This is not supported",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton"
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/scoped_variable/input.tsx",
+      "source": "tests/cases/templates/scoped_variable/input.tsx"
+    }
+  ]
+}
