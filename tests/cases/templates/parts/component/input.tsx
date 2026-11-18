@@ -1,6 +1,6 @@
 import { template } from "@whitebox/react";
 
-function Button(props: { part: string }) {
+function Button(props: { part: string }): null {
   return null;
 }
 
