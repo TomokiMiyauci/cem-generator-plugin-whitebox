@@ -1,0 +1,23 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "part with leading and trailing whitespace",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "cssParts": [{
+            "name": "test"
+          }]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/parts/trim/input.tsx",
+      "source": "tests/cases/templates/parts/trim/input.tsx"
+    }
+  ]
+}

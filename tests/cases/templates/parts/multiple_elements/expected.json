@@ -1,0 +1,24 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "multiple elements what has part attribute",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "cssParts": [
+            { "name": "test" },
+            { "name": "test2" }
+          ]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/parts/multiple_elements/input.tsx",
+      "source": "tests/cases/templates/parts/multiple_elements/input.tsx"
+    }
+  ]
+}

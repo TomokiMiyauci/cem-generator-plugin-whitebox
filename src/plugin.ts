@@ -14,7 +14,13 @@ import { dirname, resolve } from "node:path";
  * Returns the Whitebox detector plugins for CEM generator.
  */
 export function whiteboxPlugins(): DetectorPlugin[] {
-  return [customElementPlugin(), stylePlugin(), attrPlugin(), jsxPlugin()];
+  return [
+    customElementPlugin(),
+    stylePlugin(),
+    attrPlugin(),
+    jsxSlotPlugin(),
+    jsxPartPlugin(),
+  ];
 }
 
 export function customElementPlugin(): DetectorPlugin {
@@ -113,9 +119,9 @@ export function attrPlugin(): DetectorPlugin {
   };
 }
 
-export function jsxPlugin(): DetectorPlugin {
+export function jsxSlotPlugin(): DetectorPlugin {
   return {
-    name: "whitebox/jsx",
+    name: "whitebox/jsx@slot",
 
     shouldAnalyze(sourceFile) {
       return /template\b/.test(sourceFile);
@@ -130,6 +136,35 @@ export function jsxPlugin(): DetectorPlugin {
           const slots = getSlots(node, context.checker) ?? undefined;
 
           const classFragment: ClassFragment = { name: className, slots };
+
+          fragment[className] = classFragment;
+        }
+
+        node.forEachChild(visit);
+      });
+
+      return fragment;
+    },
+  };
+}
+
+export function jsxPartPlugin(): DetectorPlugin {
+  return {
+    name: "whitebox/jsx@part",
+
+    shouldAnalyze(sourceFile) {
+      return /template\b/.test(sourceFile);
+    },
+
+    onFile(context) {
+      const fragment: ManifestFragment = {};
+
+      context.sourceFile.forEachChild(function visit(node) {
+        if (ts.isClassDeclaration(node) && node.name) {
+          const className = node.name.text;
+          const cssParts = getParts(node, context.checker) ?? undefined;
+
+          const classFragment: ClassFragment = { name: className, cssParts };
 
           fragment[className] = classFragment;
         }
@@ -403,4 +438,73 @@ function getReturnExpressions(
 
   visit(body);
   return expressions;
+}
+
+function getParts(
+  node: ts.ClassDeclaration,
+  checker: ts.TypeChecker,
+): ClassFragment["cssParts"] | null {
+  const decorators = ts.getDecorators(node) ?? [];
+  const decorator = decorators.find((item) =>
+    isWhiteboxDecorator(item, "template", checker)
+  );
+
+  if (!decorator || !ts.isCallExpression(decorator.expression)) {
+    return null;
+  }
+
+  const template = decorator.expression.arguments[0];
+  if (!template) return null;
+
+  const parts: NonNullable<ClassFragment["cssParts"]> = [];
+  const names = new Set<string>();
+
+  function visit(node: ts.Node): void {
+    if (ts.isJsxElement(node)) {
+      addParts(node.openingElement);
+    } else if (ts.isJsxSelfClosingElement(node)) {
+      addParts(node);
+    }
+
+    node.forEachChild(visit);
+  }
+
+  function addParts(
+    node: ts.JsxOpeningElement | ts.JsxSelfClosingElement,
+  ): void {
+    if (!isHtmlElement(node)) return;
+
+    const attribute = node.attributes.properties.find(
+      (property): property is ts.JsxAttribute =>
+        ts.isJsxAttribute(property) && property.name.getText() === "part",
+    );
+
+    if (!attribute) return;
+
+    const value = getAttributeValue(attribute, checker);
+    if (value === null) return;
+
+    for (const name of value.split(/\s+/).filter(Boolean)) {
+      if (names.has(name)) continue;
+
+      names.add(name);
+      parts.push({ name });
+    }
+  }
+
+  for (const expression of getTemplateExpressions(template)) {
+    visit(expression);
+  }
+
+  return parts.length > 0 ? parts : null;
+}
+
+function isHtmlElement(
+  node: ts.JsxOpeningElement | ts.JsxSelfClosingElement,
+): boolean {
+  return (
+    ts.isIdentifier(node.tagName) &&
+    /^[a-z]/.test(node.tagName.text) &&
+    !node.tagName.text.includes("-")
+  );
 }

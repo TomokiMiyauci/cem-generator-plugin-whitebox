@@ -1,0 +1,20 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "empty part",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton"
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/parts/empty/input.tsx",
+      "source": "tests/cases/templates/parts/empty/input.tsx"
+    }
+  ]
+}

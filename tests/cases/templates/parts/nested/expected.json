@@ -1,0 +1,25 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "nested elements with part",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "cssParts": [
+            { "name": "container" },
+            { "name": "control" },
+            { "name": "label" }
+          ]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/parts/nested/input.tsx",
+      "source": "tests/cases/templates/parts/nested/input.tsx"
+    }
+  ]
+}
