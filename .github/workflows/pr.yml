@@ -2,8 +2,7 @@ name: Pull Request
 
 on:
   pull_request:
-    types:
-      types: [opened, edited, synchronize, reopened]
+    types: [opened, edited, synchronize, reopened]
 
     branches:
       - main
