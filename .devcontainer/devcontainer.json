@@ -1,15 +1,13 @@
 {
   "name": "Deno",
-  "image": "denoland/deno",
+  "image": "mcr.microsoft.com/devcontainers/base:debian",
   "customizations": {
     "vscode": {
       "extensions": ["denoland.vscode-deno"]
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/git:1.3.8": {
-      "version": "latest"
-    }
+    "ghcr.io/devcontainers-community/features/deno": {}
   },
   "postCreateCommand": "deno ci"
 }
