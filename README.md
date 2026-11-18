@@ -117,15 +117,18 @@ import { template } from "@whitebox/react";
 @template(() => (
   <>
     <slot name="header" />
-    <slot />
+    <button part="control">Click me</button>
+    <button part="icon label" />
   </>
 ))
 export class MyElement extends HTMLElement {}
 ```
 
 The plugin analyzes the `template` function's return expressions and detects
-native `slot` elements. Detected slots are added to the class declaration's
-`slots` field in the generated manifest.
+native `slot` elements and HTML elements with `part` attributes.
+
+Detected slots are added to the class declaration's `slots` field, and detected
+CSS parts are added to its `cssParts` field in the generated manifest.
 
 The plugin currently supports inline functions only, including both
 expression-bodied and block-bodied functions.

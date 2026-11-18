@@ -1,0 +1,20 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "whitespace part",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton"
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/parts/whitespace/input.tsx",
+      "source": "tests/cases/templates/parts/whitespace/input.tsx"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "multiple parts",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "cssParts": [
+            { "name": "test" },
+            { "name": "test2" },
+            { "name": "test3" }
+          ]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/parts/multiple_parts/input.tsx",
+      "source": "tests/cases/templates/parts/multiple_parts/input.tsx"
+    }
+  ]
+}

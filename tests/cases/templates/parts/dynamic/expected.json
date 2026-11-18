@@ -1,0 +1,21 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "dynamic",
+  "description": "This is not supported",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton"
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/parts/dynamic/input.tsx",
+      "source": "tests/cases/templates/parts/dynamic/input.tsx"
+    }
+  ]
+}

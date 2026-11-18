@@ -1,0 +1,24 @@
+{
+  "inputs": ["./input.tsx"],
+  "name": "duplicated complex parts",
+
+  "modules": [
+    {
+      "declarations": [
+        {
+          "customElement": false,
+          "kind": "class",
+          "name": "MyButton",
+          "cssParts": [
+            { "name": "control" },
+            { "name": "label" }
+          ]
+        }
+      ],
+      "exports": [],
+      "kind": "javascript-module",
+      "path": "tests/cases/templates/parts/duplicated_complex/input.tsx",
+      "source": "tests/cases/templates/parts/duplicated_complex/input.tsx"
+    }
+  ]
+}
