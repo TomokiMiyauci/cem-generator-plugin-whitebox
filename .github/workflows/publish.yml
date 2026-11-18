@@ -27,12 +27,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
-      - uses: denoland/setup-deno@v2
+      - name: Type Check
+        uses: devcontainers/ci@v0.3
         with:
-          cache: true
-
-      - name: Install dependencies
-        run: deno ci
-
-      - name: Publish to JSR
-        run: deno publish
+          runCmd: deno publish
